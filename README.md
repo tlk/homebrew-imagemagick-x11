@@ -1,15 +1,20 @@
-# Tlk Imagemagick-x11
+# Homebrew tap and formula for ImageMagick with X11 support
 
-## How do I install these formulae?
-`brew install tlk/imagemagick-x11/<formula>`
-
-Or `brew tap tlk/imagemagick-x11` and then `brew install <formula>`.
-
-Or install via URL (which will not receive updates):
-
+## How do I install this?
 ```
-brew install https://raw.githubusercontent.com/tlk/homebrew-imagemagick-x11/master/Formula/<formula>.rb
+brew cask install xquartz
+brew tap tlk/imagemagick-x11
+brew install tlk/imagemagick-x11/imagemagick
 ```
 
-## Documentation
+## Verify that it works
+```
+# Start X11
+open /Applications/Utilities/XQuartz.app
+
+# Show the ImageMagick wizard in a window
+display wizard:
+```
+
+## Details about Homebrew
 `brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
