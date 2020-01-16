@@ -1,4 +1,4 @@
-# Homebrew tap and formula for ImageMagick with X11 support
+# Homebrew ImageMagick with X11 support
 
 ## How do I install this?
 ```
