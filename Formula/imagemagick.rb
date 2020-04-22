@@ -1,19 +1,20 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://www.imagemagick.org/"
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.9-23.tar.xz"
-  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.9-23.tar.xz"
-  sha256 "f8f711ba3bff9477426f3fad4ff438c443574582f384311eaac7beb2ef565035"
+  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-7.tar.xz"
+  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-7.tar.xz"
+  sha256 "7a0365e20eeef2129cb8ffee1acf1d21cdbc2ea8b57ce2941c6ca0e935d4f843"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
   bottle do
-    sha256 "e3e61bbbcf1b16248136f1743dd0358c10e97dc8637f3dda556a8b6b39229999" => :catalina
-    sha256 "649fbbb8f9ff2b26a1a0691e132094bcf7469249bd406c8b9619d826ed8fde8f" => :mojave
-    sha256 "4797b56109daf440c4c98d6634b9ae60cf317da78fd398dc65dfd75027ba1aaf" => :high_sierra
+    sha256 "ac1dbeb7c4e06e573ef115d8504bfd6d6771f82ea6193a55c131582e91d93d0e" => :catalina
+    sha256 "4026d99d56a65f4ef135dddfd998bd9c2b6130d7a4acb0cf1636568c58274556" => :mojave
+    sha256 "34e913118df112b20b440063dcee2d4fd9ffd47d7351cb60d2a7715df854eefe" => :high_sierra
   end
 
   depends_on "pkg-config" => :build
   depends_on "freetype"
+  depends_on "ghostscript"
   depends_on "jpeg"
   depends_on "libheif"
   depends_on "libomp"
@@ -33,6 +34,9 @@ class Imagemagick < Formula
   skip_clean :la
 
   def install
+    # Avoid references to shim
+    inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
+
     args = %W[
       --disable-osx-universal-binary
       --prefix=#{prefix}
@@ -47,7 +51,7 @@ class Imagemagick < Formula
       --with-openexr
       --with-webp=yes
       --with-heic=yes
-      --without-gslib
+      --with-gslib
       --with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts
       --without-fftw
       --without-pango
@@ -73,5 +77,6 @@ class Imagemagick < Formula
     %w[Modules freetype jpeg png tiff].each do |feature|
       assert_match feature, features
     end
+    assert_match "Helvetica", shell_output("#{bin}/identify -list font")
   end
 end
