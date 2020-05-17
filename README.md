@@ -20,11 +20,7 @@ open /Applications/Utilities/XQuartz.app
 display wizard:
 ```
 
-## Details about Homebrew
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
-
-
-## Related
+## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082
 * https://imagemagick.org/discourse-server/viewtopic.php?f=3&t=37386
 * https://stackoverflow.com/a/59720020/936466
