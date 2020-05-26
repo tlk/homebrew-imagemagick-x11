@@ -7,7 +7,6 @@ This is a macOS [Homebrew tap](https://docs.brew.sh/Taps) for ImageMagick with X
 brew uninstall imagemagick
 
 brew cask install xquartz
-brew tap tlk/imagemagick-x11
 brew install tlk/imagemagick-x11/imagemagick
 ```
 
