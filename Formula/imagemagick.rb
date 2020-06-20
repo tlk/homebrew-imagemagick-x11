@@ -1,9 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://www.imagemagick.org/"
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-14.tar.xz"
-  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-14.tar.xz"
-  sha256 "f7abbc65cce01caa314ef4cc9acf8adfa7b633689901a52f29d681230a997c59"
+  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-19.tar.xz"
+  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-19.tar.xz"
+  sha256 "8bc39c9c2aacfd3f879b994d0bd14bee59ee86e9924e9642e52172c21b5edd5c"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
   depends_on "pkg-config" => :build
@@ -11,6 +11,7 @@ class Imagemagick < Formula
   depends_on "ghostscript"
   depends_on "jpeg"
   depends_on "libheif"
+  depends_on "liblqr"
   depends_on "libomp"
   depends_on "libpng"
   depends_on "libtiff"
@@ -47,6 +48,7 @@ class Imagemagick < Formula
       --with-heic=yes
       --with-gslib
       --with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts
+      --with-lqr
       --without-fftw
       --without-pango
       --without-wmf
