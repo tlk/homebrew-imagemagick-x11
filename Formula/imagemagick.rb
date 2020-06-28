@@ -1,9 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://www.imagemagick.org/"
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-20.tar.xz"
-  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-20.tar.xz"
-  sha256 "75eb1d459bd09e536a83c598861facb7dbcbc65ad3279b782e2f0157ba32a2ef"
+  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-22.tar.xz"
+  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-22.tar.xz"
+  sha256 "df948e5a12e81de1083754744bb42f5445dcdbf6d895bddf111503be239bd547"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
   depends_on "pkg-config" => :build
