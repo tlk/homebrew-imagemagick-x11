@@ -3,7 +3,8 @@ name: weekly-update
 on:
   schedule:
     # run every Monday at 01:00 UTC
-    - cron:  '0 1 * * 1'
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -16,4 +17,3 @@ jobs:
         git config user.email github-actions@github.com
         ./fetch-and-patch-upstream-formula.sh
         git push
-
