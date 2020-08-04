@@ -1,0 +1,19 @@
+name: weekly-update
+
+on:
+  schedule:
+    # run every Monday at 01:00 UTC
+    - cron:  '0 1 * * 1'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update formula
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        ./fetch-and-patch-upstream-formula.sh
+        git push
+

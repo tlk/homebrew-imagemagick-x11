@@ -1,0 +1,25 @@
+--- Formula/imagemagick.rb	2020-08-04 00:00:00.000000000 +0200
++++ Formula/imagemagick.rb	2020-08-04 00:00:00.000000000 +0200
+@@ -23,6 +23,7 @@
+   depends_on "openjpeg"
+   depends_on "webp"
+   depends_on "xz"
++  depends_on :x11
+ 
+   uses_from_macos "bzip2"
+   uses_from_macos "libxml2"
+@@ -52,12 +53,13 @@
+       --with-lqr
+       --without-fftw
+       --without-pango
+-      --without-x
+       --without-wmf
+       --enable-openmp
+       ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
+       ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
+       LDFLAGS=-lomp
++      X_CFLAGS=-I#{MacOS.sdk_path}/usr/include/libxml2
++      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
+     ]
+ 
+     # versioned stuff in main tree is pointless for us
