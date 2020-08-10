@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 FORMULA=Formula/imagemagick.rb
 
 wget -q -O - https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/imagemagick.rb \
