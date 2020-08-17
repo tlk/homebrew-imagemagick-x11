@@ -1,9 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://www.imagemagick.org/"
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-26.tar.xz"
-  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-26.tar.xz"
-  sha256 "7bd6c9e9f18093630ff2cb5992b3f4e190f105f73eabf3de1093542f0da8f32b"
+  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-28.tar.xz"
+  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-28.tar.xz"
+  sha256 "6a6b32f04fa508f198eb0e3677d95729121796cbe156add05d3eb8070c7569b0"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
@@ -36,7 +36,7 @@ class Imagemagick < Formula
     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
 
     args = %W[
-      --disable-osx-universal-binary
+      --enable-osx-universal-binary=no
       --prefix=#{prefix}
       --disable-dependency-tracking
       --disable-silent-rules
