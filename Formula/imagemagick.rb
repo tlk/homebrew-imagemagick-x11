@@ -7,6 +7,11 @@ class Imagemagick < Formula
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
+  livecheck do
+    url "https://www.imagemagick.org/download/"
+    regex(/href=.*?ImageMagick[._-]v?(\d+(?:\.\d+)+-\d+)\.t/i)
+  end
+
 
   depends_on "pkg-config" => :build
   depends_on "freetype"
