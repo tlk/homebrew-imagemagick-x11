@@ -12,9 +12,15 @@ wget -q -O - $SOURCE \
 
 patch $FORMULA imagemagick-x11.patch
 
+git add $FORMULA
+git diff --quiet --exit-code
+
+if [ $? = 0 ]; then
+    echo "Nothing to commit."
+    exit
+fi
+
 git commit \
     -m "Merge upstream" \
     -m "" \
-    -m "Source $SOURCE" \
-    $FORMULA
-
+    -m "Source $SOURCE"
