@@ -1,26 +1,27 @@
 #!/bin/sh
 
-set -e
-
 SOURCE=https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/imagemagick.rb
 FORMULA=Formula/imagemagick.rb
 
 wget -q -O - $SOURCE \
     | sed 's/manipulate images in many formats"/manipulate images in many formats (X11 support)"/g' \
     | sed '/  bottle do/,/  end/d' \
-    > $FORMULA
+    > $FORMULA || exit 1
 
-patch $FORMULA imagemagick-x11.patch
+patch $FORMULA imagemagick-x11.patch || exit 2
 
-git add $FORMULA
-git diff --quiet --exit-code
+git diff --exit-code $FORMULA
 
-if [ $? = 0 ]; then
-    echo "Nothing to commit."
-    exit
+if [ $? -eq 0 ]; then
+    echo "Nothing to commit. This is okay."
+    exit 0
 fi
+
+echo ""
+echo "Committing patched formulae..."
 
 git commit \
     -m "Merge upstream" \
     -m "" \
-    -m "Source $SOURCE"
+    -m "Source $SOURCE" \
+    $FORMULA
