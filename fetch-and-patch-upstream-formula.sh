@@ -24,4 +24,4 @@ git commit \
     -m "Merge upstream" \
     -m "" \
     -m "Source $SOURCE" \
-    $FORMULA
+    $FORMULA || exit 3
