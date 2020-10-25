@@ -15,5 +15,5 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        ./fetch-and-patch-upstream-formula.sh
+        Patch/fetch-and-patch-upstream-formula.sh
         git push
