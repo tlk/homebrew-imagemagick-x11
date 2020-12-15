@@ -1,9 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://www.imagemagick.org/"
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-46.tar.xz"
-  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-46.tar.xz"
-  sha256 "6098853e9fe83bf126a06d2daab5e020e906c6299358cb4d52bef8f37171636e"
+  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-7.0.10-48.tar.xz"
+  mirror "https://www.imagemagick.org/download/releases/ImageMagick-7.0.10-48.tar.xz"
+  sha256 "0989f47383eca1c598603c2169b3ac9fa1a2a945e5325b9266592b457db48a08"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git"
 
@@ -28,11 +28,14 @@ class Imagemagick < Formula
   depends_on "openjpeg"
   depends_on "webp"
   depends_on "xz"
-  depends_on :x11
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
+
+  on_linux do
+    depends_on "libx11"
+  end
 
   skip_clean :la
 
@@ -64,9 +67,11 @@ class Imagemagick < Formula
       ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
       ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
       LDFLAGS=-lomp\ -lz
-      X_CFLAGS=-I#{MacOS.sdk_path}/usr/include/libxml2
-      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
     ]
+
+    on_macos do
+      args << "--without-x"
+    end
 
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
