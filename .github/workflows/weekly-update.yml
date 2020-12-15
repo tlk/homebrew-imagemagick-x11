@@ -15,5 +15,9 @@ jobs:
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
-        Patch/fetch-and-patch-upstream-formula.sh
+        bin/patchtool.sh --fetch-upstream
+        bin/patchtool.sh --update-description
+        bin/patchtool.sh --remove-bottle
+        bin/patchtool.sh --apply-patch
+        bin/patchtool.sh --git-commit-formula
         git push
