@@ -28,6 +28,7 @@ class Imagemagick < Formula
   depends_on "openjpeg"
   depends_on "webp"
   depends_on "xz"
+  depends_on :x11
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
@@ -67,11 +68,9 @@ class Imagemagick < Formula
       ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
       ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
       LDFLAGS=-lomp\ -lz
+      X_CFLAGS=-I#{MacOS.sdk_path}/usr/include/libxml2
+      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
     ]
-
-    on_macos do
-      args << "--without-x"
-    end
 
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
