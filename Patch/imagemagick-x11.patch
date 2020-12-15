@@ -1,6 +1,8 @@
---- Formula/imagemagick.rb	2020-08-04 00:00:00.000000000 +0200
-+++ Formula/imagemagick.rb	2020-08-04 00:00:00.000000000 +0200
-@@ -23,6 +23,7 @@
+diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
+index c5cd07e..262766d 100644
+--- a/Formula/imagemagick.rb
++++ b/Formula/imagemagick.rb
+@@ -28,6 +28,7 @@ class Imagemagick < Formula
    depends_on "openjpeg"
    depends_on "webp"
    depends_on "xz"
@@ -8,13 +10,7 @@
  
    uses_from_macos "bzip2"
    uses_from_macos "libxml2"
-@@ -52,12 +53,13 @@
-       --with-lqr
-       --without-fftw
-       --without-pango
--      --without-x
-       --without-wmf
-       --enable-openmp
+@@ -67,12 +68,10 @@ class Imagemagick < Formula
        ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
        ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
        LDFLAGS=-lomp\ -lz
@@ -22,4 +18,10 @@
 +      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
      ]
  
+-    on_macos do
+-      args << "--without-x"
+-    end
+-
      # versioned stuff in main tree is pointless for us
+     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
+     system "./configure", *args
