@@ -71,10 +71,6 @@ class Imagemagick < Formula
       X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
     ]
 
-    on_macos do
-      depends_on cask: "xquartz"
-    end
-
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
     system "./configure", *args
