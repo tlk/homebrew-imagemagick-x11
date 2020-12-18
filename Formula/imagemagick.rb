@@ -67,12 +67,10 @@ class Imagemagick < Formula
       ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
       ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
       LDFLAGS=-lomp\ -lz
-      X_CFLAGS=-I#{MacOS.sdk_path}/usr/include/libxml2
-      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
     ]
 
     on_macos do
-      depends_on "libx11"
+      args << "--without-x"
     end
 
     # versioned stuff in main tree is pointless for us
