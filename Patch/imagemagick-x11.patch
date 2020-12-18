@@ -1,16 +1,8 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index c5cd07e..262766d 100644
+index 05ef8df..f474974 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
-@@ -28,6 +28,7 @@ class Imagemagick < Formula
-   depends_on "openjpeg"
-   depends_on "webp"
-   depends_on "xz"
-+  depends_on :x11
- 
-   uses_from_macos "bzip2"
-   uses_from_macos "libxml2"
-@@ -67,12 +68,10 @@ class Imagemagick < Formula
+@@ -67,10 +67,12 @@ class Imagemagick < Formula
        ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
        ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
        LDFLAGS=-lomp\ -lz
@@ -18,10 +10,9 @@ index c5cd07e..262766d 100644
 +      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
      ]
  
--    on_macos do
+     on_macos do
 -      args << "--without-x"
--    end
--
++      depends_on cask: "xquartz"
+     end
+ 
      # versioned stuff in main tree is pointless for us
-     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
-     system "./configure", *args
