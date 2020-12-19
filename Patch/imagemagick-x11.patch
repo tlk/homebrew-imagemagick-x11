@@ -1,5 +1,5 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index 05ef8df..8eb3e47 100644
+index 05ef8df..065d331 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
 @@ -33,9 +33,7 @@ class Imagemagick < Formula
@@ -13,12 +13,8 @@ index 05ef8df..8eb3e47 100644
  
    skip_clean :la
  
-@@ -67,12 +65,10 @@ class Imagemagick < Formula
-       ac_cv_prog_c_openmp=-Xpreprocessor\ -fopenmp
-       ac_cv_prog_cxx_openmp=-Xpreprocessor\ -fopenmp
+@@ -69,10 +67,6 @@ class Imagemagick < Formula
        LDFLAGS=-lomp\ -lz
-+      X_CFLAGS=-I#{MacOS.sdk_path}/usr/include/libxml2
-+      X_LIBS=-L#{MacOS.sdk_path}/usr/lib\ -lxml2\ -lz\ -lpthread\ -licucore\ -lm
      ]
  
 -    on_macos do
