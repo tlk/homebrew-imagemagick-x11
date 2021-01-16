@@ -37,6 +37,40 @@ class Imagemagick < Formula
 
   skip_clean :la
 
+  #
+  # *EXPERIMENTAL PATCH*
+  #
+  # The ImageMagick configure script runs a number of compiler tests to check
+  # for the existence of libraries such as libxext and libxt (-lXext -lXt).
+  #
+  # When the configure script is checking for XShmAttach in -lXext it does so
+  # by testing that -lXext is present but without testing if
+  # X11/extensions/XShm.h can be included.
+  #
+  # This check enables MAGICKCORE_HAVE_SHARED_MEMORY
+  # This causes MagickCore/xwindow.c to include X11/extensions/XShm.h
+  # This causes the `make install` step to fail
+  #
+  # As an experiment, the configure script is patched to test for the existence
+  # of X11/extensions/XShm.h (see the bottom of this file).
+  #
+  # In addition, the configure script is patched to align with a vanilla build
+  # of ImageMagick.
+  #
+  # These patches allows the project to build but the `display wizard`
+  # segfaults.
+  #
+  patch :DATA
+
+
+  # Alternative to the patches. Adding these dependencies allows the project to
+  # build but the `display wizard` segfaults.
+  #
+  # depends_on "libxext"
+  # depends_on "libsm"
+  # depends_on "libxt"
+
+
   def install
     # Avoid references to shim
     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
@@ -83,3 +117,45 @@ class Imagemagick < Formula
     assert_match "Helvetica", shell_output("#{bin}/identify -list font")
   end
 end
+
+__END__
+diff --git a/configure b/configure
+index 662e288..4b4bc59 100755
+--- a/configure
++++ b/configure
+@@ -27835,6 +27835,8 @@ LIBS="-lICE $X_EXTRA_LIBS $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+
++#include <X11/ICE/ICElib.h>
++
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+@@ -27931,6 +27933,8 @@ LIBS="-lXext  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
++#include <X11/extensions/XShm.h>
++
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+@@ -27978,6 +27982,8 @@ LIBS="-lXext  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
++#include <X11/extensions/shape.h>
++
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+@@ -28020,6 +28026,8 @@ LIBS="-lXt  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
++#include <X11/Intrinsic.h>
++
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
