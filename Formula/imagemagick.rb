@@ -37,33 +37,11 @@ class Imagemagick < Formula
 
   skip_clean :la
 
-  #
-  # *EXPERIMENTAL PATCH*
-  #
-  # The ImageMagick configure script runs a number of compiler tests to check
-  # for the existence of libraries such as libxext and libxt (-lXext -lXt).
-  #
-  # When the configure script is checking for XShmAttach in -lXext it does so
-  # by testing that -lXext is present but without testing if
-  # X11/extensions/XShm.h can be included.
-  #
-  # This check enables MAGICKCORE_HAVE_SHARED_MEMORY
-  # This causes MagickCore/xwindow.c to include X11/extensions/XShm.h
-  # This causes the `make install` step to fail
-  #
-  # As an experiment, the configure script is patched to test for the existence
-  # of X11/extensions/XShm.h (see the bottom of this file).
-  #
-  # In addition, the configure script is patched to align with a vanilla build
-  # of ImageMagick.
-  #
-  # These patches allows the project to build but the `display wizard`
-  # segfaults.
-  #
+
+  # experimental patch, see details at the bottom of this file
   patch :DATA
 
-
-  # Alternative to the patches. Adding these dependencies allows the project to
+  # Alternative to the patch. Adding these dependencies allows the project to
   # build but the `display wizard` segfaults.
   #
   # depends_on "libxext"
@@ -74,6 +52,34 @@ class Imagemagick < Formula
   def install
     # Avoid references to shim
     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
+
+
+    # Add a symlink that points to the X11 include files provided by XQuartz.
+    # This prevents the `display wizard` command from segfaulting.
+    ln_s "/opt/X11/include/X11", "#{buildpath}/X11"
+
+
+    # Adding -I/opt/X11/include and -L/opt/X11/lib via compiler flags is blocked
+    # by the HOMEBREW_CCCFG=Osa setting. (=sa works, maybe)
+    #
+    # See the following for details:
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/extend/ENV/super.rb#L83-L88
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L36
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L108
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L140
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L171       <-- refurbish_arg,
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L252-L254      /opt/X11 is being filtered out
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L270
+    #   https://github.com/Homebrew/brew/blob/master/Library/Homebrew/shims/super/cc#L357
+
+    # Consider appending /opt/X11/lib/pkgconfig to PKG_CONFIG_PATH and/or
+    # adding a symlink to /opt/X11/lib during build instead of depending on
+    # libx11/xorgproto.
+
+    # See also the "x11" method that was removed from brew recently:
+    # (Library/Homebrew/extend/os/mac/extend/ENV/std.rb)
+    # https://github.com/Homebrew/brew/commit/87dd13aea6691e9d5e0f3ba8d1d1f862a809212a#diff-ed4c0c77ea1a192666ae8a1758389fb65054649d71e0e39e14ee08e919fdb2b3L13-L34
+
 
     args = %W[
       --enable-osx-universal-binary=no
@@ -117,6 +123,23 @@ class Imagemagick < Formula
     assert_match "Helvetica", shell_output("#{bin}/identify -list font")
   end
 end
+
+
+# *EXPERIMENTAL PATCH*
+#
+# The ImageMagick configure script runs a number of compiler tests to check
+# for the existence of libraries such as libxext and libxt (-lXext -lXt).
+#
+# When the configure script is checking for XShmAttach in -lXext it does so
+# by testing that -lXext is present but without testing if
+# X11/extensions/XShm.h can be included.
+#
+# This check enables MAGICKCORE_HAVE_SHARED_MEMORY
+# This causes MagickCore/xwindow.c to include X11/extensions/XShm.h
+# This causes the `make install` step to fail
+#
+# As an experiment, the configure script is patched to test if
+# X11/extensions/XShm.h can be included.
 
 __END__
 diff --git a/configure b/configure
