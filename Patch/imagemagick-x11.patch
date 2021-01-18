@@ -1,5 +1,5 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index 05ef8df..065d331 100644
+index c13fc88..53c0507 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
 @@ -33,9 +33,7 @@ class Imagemagick < Formula
@@ -13,7 +13,15 @@ index 05ef8df..065d331 100644
  
    skip_clean :la
  
-@@ -69,10 +67,6 @@ class Imagemagick < Formula
+@@ -52,7 +50,6 @@ class Imagemagick < Formula
+       --enable-shared
+       --enable-static
+       --with-freetype=yes
+-      --with-gvc=no
+       --with-modules
+       --with-openjp2
+       --with-openexr
+@@ -70,10 +67,6 @@ class Imagemagick < Formula
        LDFLAGS=-lomp\ -lz
      ]
  
@@ -22,5 +30,5 @@ index 05ef8df..065d331 100644
 -    end
 -
      # versioned stuff in main tree is pointless for us
-     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
+     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}", "${PACKAGE_NAME}"
      system "./configure", *args
