@@ -1,6 +1,10 @@
 # Homebrew ImageMagick with X11 support
 
-This is a macOS [Homebrew](https://brew.sh) [tap](https://docs.brew.sh/Taps) for ImageMagick with X11 support. It tracks the upstream ImageMagick formula and applies just what is needed to enable X11 support.
+This is a macOS [Homebrew](https://brew.sh) [tap](https://docs.brew.sh/Taps) for ImageMagick with X11 support.
+
+It tracks the upstream ImageMagick formula and enables the following:
+- X11 support
+- graphviz support
 
 Updated on a [weekly](.github/workflows/weekly-update.yml) basis thanks to [Github Actions](https://github.com/features/actions).
 
