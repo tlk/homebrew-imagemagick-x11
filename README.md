@@ -4,7 +4,7 @@ This is a macOS [Homebrew](https://brew.sh) [tap](https://docs.brew.sh/Taps) for
 
 It tracks the upstream ImageMagick formula and enables the following:
 - X11 support
-- graphviz support
+- optional `--with-graphviz` support
 
 Updated on a [weekly](.github/workflows/weekly-update.yml) basis thanks to [Github Actions](https://github.com/features/actions).
 
@@ -23,6 +23,15 @@ open /Applications/Utilities/XQuartz.app
 # Show the ImageMagick wizard in a window
 display wizard:
 ```
+
+## Optional --with-graphviz support
+```
+brew uninstall imagemagick
+brew cask install xquartz
+brew install tlk/imagemagick-x11/imagemagick --with-graphviz
+convert mygraph.dot mygraph.png
+```
+
 
 ## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082

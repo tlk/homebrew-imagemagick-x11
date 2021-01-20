@@ -2,7 +2,7 @@ diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
 index c13fc88..d087dfc 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
-@@ -33,16 +33,54 @@ class Imagemagick < Formula
+@@ -33,16 +33,55 @@ class Imagemagick < Formula
    uses_from_macos "libxml2"
    uses_from_macos "zlib"
  
@@ -10,6 +10,7 @@ index c13fc88..d087dfc 100644
 -    depends_on "libx11"
 -  end
 +  depends_on "libx11"
++  depends_on "graphviz" => :optional
  
    skip_clean :la
  

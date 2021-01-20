@@ -34,6 +34,7 @@ class Imagemagick < Formula
   uses_from_macos "zlib"
 
   depends_on "libx11"
+  depends_on "graphviz" => :optional
 
   skip_clean :la
 
