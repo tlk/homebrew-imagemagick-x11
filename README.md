@@ -24,7 +24,7 @@ open /Applications/Utilities/XQuartz.app
 display wizard:
 ```
 
-*ImageMagick has support for [graphviz DOT-files](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) if the `--with-graphviz` option was used during install:
+*ImageMagick has support for [graphviz DOT-files](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) if the `--with-graphviz` option is used during install:
 ```
 convert mygraph.dot mygraph.png
 ```
