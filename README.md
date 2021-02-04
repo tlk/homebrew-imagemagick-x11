@@ -29,6 +29,16 @@ display wizard:
 convert mygraph.dot mygraph.png
 ```
 
+## Updated every week
+The formula is updated weekly which means that running `brew update && brew upgrade` will build and install the latest version.
+
+Note that Homebrew has a ["pin" feature](https://docs.brew.sh/FAQ#how-do-i-stop-certain-formulae-from-being-updated) that will prevent `brew update && brew upgrade` from upgrading a particular piece of software:
+```
+brew pin tlk/imagemagick-x11/imagemagick
+brew list --pinned
+brew unpin tlk/imagemagick-x11/imagemagick  # allow it to be upgraded again
+```
+
 ## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082
 * https://imagemagick.org/discourse-server/viewtopic.php?f=3&t=37386
