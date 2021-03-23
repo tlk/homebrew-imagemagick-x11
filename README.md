@@ -11,7 +11,7 @@ Updated on a [weekly](.github/workflows/weekly-update.yml) basis thanks to [Gith
 ## How do I install this?
 ```
 brew uninstall imagemagick  # without X11 support
-brew cask install xquartz
+brew install --cask xquartz
 brew install tlk/imagemagick-x11/imagemagick --with-graphviz
 ```
 
