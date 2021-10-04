@@ -1,5 +1,5 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index e947f4c..736382f 100644
+index 4bd3df9..f57afbc 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
 @@ -32,16 +32,55 @@ class Imagemagick < Formula
@@ -69,18 +69,16 @@ index e947f4c..736382f 100644
        "--with-modules",
        "--with-openjp2",
        "--with-openexr",
-@@ -69,10 +107,6 @@ class Imagemagick < Formula
+@@ -69,8 +107,6 @@ class Imagemagick < Formula
        "LDFLAGS=-lomp -lz",
      ]
  
--    on_macos do
--      args << "--without-x"
--    end
+-    args << "--without-x" if OS.mac?
 -
      # versioned stuff in main tree is pointless for us
      inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}", "${PACKAGE_NAME}"
      system "./configure", *args
-@@ -89,3 +123,62 @@ class Imagemagick < Formula
+@@ -87,3 +123,62 @@ class Imagemagick < Formula
      assert_match "Helvetica", shell_output("#{bin}/identify -list font")
    end
  end
