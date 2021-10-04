@@ -12,20 +12,18 @@ Updated on a [weekly](.github/workflows/weekly-update.yml) basis thanks to [Gith
 ```
 brew uninstall imagemagick  # without X11 support
 brew install --cask xquartz
-brew install tlk/imagemagick-x11/imagemagick --with-graphviz
+brew install tlk/imagemagick-x11/imagemagick
 ```
 
 ## Verify that it works
 ```
-# Start X11
-open /Applications/Utilities/XQuartz.app
-
 # Show the ImageMagick wizard in a window
 display wizard:
 ```
 
 *ImageMagick has support for [graphviz DOT-files](https://en.wikipedia.org/wiki/DOT_(graph_description_language)) if the `--with-graphviz` option is used during install:
 ```
+brew install tlk/imagemagick-x11/imagemagick --with-graphviz
 convert mygraph.dot mygraph.png
 ```
 
