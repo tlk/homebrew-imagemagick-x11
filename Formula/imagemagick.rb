@@ -1,8 +1,8 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://imagemagick.org/index.php"
-  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-20.tar.xz"
-  sha256 "ddc458634c4c1a1e84c9e97c3eb120123519651a8431dc17ea5ac7291dbe3598"
+  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-22.tar.xz"
+  sha256 "8b02ffda73a0163a8341638b5603d955ff7258798d8d0194577ffa928cbb97a8"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
