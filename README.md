@@ -33,8 +33,6 @@ convert mygraph.dot mygraph.png
 ## Updated every week
 The formula is updated weekly which means that Homebrew will automatically build and install the latest version.
 
-If this is undesirable consider checking out the Homebrew ["pin" feature](https://docs.brew.sh/FAQ#how-do-i-stop-certain-formulae-from-being-updated) or the Homebrew [environment variables](https://docs.brew.sh/Manpage#environment) `HOMEBREW_NO_AUTO_UPDATE` and `HOMEBREW_NO_INSTALL_UPGRADE`.
-
 ## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082
 * https://imagemagick.org/discourse-server/viewtopic.php?f=3&t=37386
