@@ -1,8 +1,8 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://imagemagick.org/index.php"
-  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-29.tar.xz"
-  sha256 "a89df63da5ec823ae77049d747bf6b370bc867a06659b410f42652e5773fc62c"
+  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-30.tar.xz"
+  sha256 "0b08200440a5967b35bdc2d26515613b01c747d1340796901a93d83bad15fafb"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
@@ -126,7 +126,7 @@ class Imagemagick < Formula
 
     # Check support for a few specific image formats, mostly to ensure LibRaw linked correctly.
     formats = shell_output("#{bin}/magick -list format")
-    ["AVIF* HEIC      rw+", "ARW  DNG       r--", "DNG  DNG       r--"].each do |format|
+    ["AVIF  HEIC      rw+", "ARW  DNG       r--", "DNG  DNG       r--"].each do |format|
       assert_match format, formats
     end
     assert_match "Helvetica", shell_output("#{bin}/magick -list font")
