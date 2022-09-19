@@ -1,8 +1,8 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.0-47.tar.xz"
-  sha256 "9565918fcc6f8857c7907a8a73cf1c1f23fa37b77cf869886d98fcf03f89adf3"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.0-48.tar.xz"
+  sha256 "eb2d4dc3cc9fd3d4686aa64562177ca5067b1d40bcb6ec75fa1003eaf8c37f4e"
   license "ImageMagick"
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
@@ -37,25 +37,14 @@ class Imagemagick < Formula
   end
 
   on_linux do
-    depends_on "gcc"
+    depends_on "libx11"
   end
 
-  depends_on "libx11"
-  depends_on "graphviz" => :optional
-
   skip_clean :la
-
-  patch :DATA
-
-  fails_with gcc: "5" # ghostscript is built with GCC
 
   def install
     # Avoid references to shim
     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
-
-    # Add a symlink that points to the X11 include files provided by XQuartz.
-    # This prevents the `display wizard` command from segfaulting.
-    ln_s "/opt/X11/include/X11", "#{buildpath}/X11"
 
     args = [
       "--enable-osx-universal-binary=no",
@@ -66,6 +55,7 @@ class Imagemagick < Formula
       "--enable-shared",
       "--enable-static",
       "--with-freetype=yes",
+      "--with-gvc=no",
       "--with-modules",
       "--with-openjp2",
       "--with-openexr",
@@ -82,6 +72,7 @@ class Imagemagick < Formula
     ]
     if OS.mac?
       args += [
+        "--without-x",
         # Work around "checking for clang option to support OpenMP... unsupported"
         "ac_cv_prog_c_openmp=-Xpreprocessor -fopenmp",
         "ac_cv_prog_cxx_openmp=-Xpreprocessor -fopenmp",
@@ -112,62 +103,3 @@ class Imagemagick < Formula
     assert_match "Helvetica", shell_output("#{bin}/magick -list font")
   end
 end
-
-
-# *PATCH*
-#
-# The ImageMagick configure script runs a number of compiler tests to check
-# for the existence of libraries such as libxext and libxt (-lXext -lXt).
-#
-# When the configure script is checking for XShmAttach in -lXext it does so
-# by testing that -lXext is present but without testing if
-# X11/extensions/XShm.h can be included.
-#
-# This check enables MAGICKCORE_HAVE_SHARED_MEMORY
-# This causes MagickCore/xwindow.c to include X11/extensions/XShm.h
-# This causes the `make install` step to fail
-#
-# To work around this issue the configure script is patched to test if
-# X11/extensions/XShm.h can be included.
-
-__END__
-diff --git a/configure b/configure
-index 662e288..4b4bc59 100755
---- a/configure
-+++ b/configure
-@@ -27835,6 +27835,8 @@ LIBS="-lICE $X_EXTRA_LIBS $LIBS"
- cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
-
-+#include <X11/ICE/ICElib.h>
-+
- /* Override any GCC internal prototype to avoid an error.
-    Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -27931,6 +27933,8 @@ LIBS="-lXext  $LIBS"
- cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
- 
-+#include <X11/extensions/XShm.h>
-+
- /* Override any GCC internal prototype to avoid an error.
-    Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -27978,6 +27982,8 @@ LIBS="-lXext  $LIBS"
- cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
- 
-+#include <X11/extensions/shape.h>
-+
- /* Override any GCC internal prototype to avoid an error.
-    Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -28020,6 +28026,8 @@ LIBS="-lXt  $LIBS"
- cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
- 
-+#include <X11/Intrinsic.h>
-+
- /* Override any GCC internal prototype to avoid an error.
-    Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
