@@ -1,8 +1,8 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index d1a7191..f2ed791 100644
+index a1c5d5b..67aaad4 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
-@@ -42,10 +42,19 @@ class Imagemagick < Formula
+@@ -42,7 +42,16 @@ class Imagemagick < Formula
  
    skip_clean :la
  
@@ -10,18 +10,15 @@ index d1a7191..f2ed791 100644
 +  depends_on "graphviz" => :optional
 +
 +  patch :DATA
-+
++ 
    def install
-     # Avoid references to shim
-     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
- 
 +    # Add a symlink that points to the X11 include files provided by XQuartz.
 +    # This prevents the `display wizard` command from segfaulting.
 +    ln_s "/opt/X11/include/X11", "#{buildpath}/X11"
 +
-     args = [
-       "--enable-osx-universal-binary=no",
-       "--prefix=#{prefix}",
+     # Avoid references to shim
+     inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
+     # versioned stuff in main tree is pointless for us
 @@ -55,7 +64,6 @@ class Imagemagick < Formula
        "--enable-shared",
        "--enable-static",
@@ -30,7 +27,7 @@ index d1a7191..f2ed791 100644
        "--with-modules",
        "--with-openjp2",
        "--with-openexr",
-@@ -72,7 +80,6 @@ class Imagemagick < Formula
+@@ -73,7 +81,6 @@ class Imagemagick < Formula
      ]
      if OS.mac?
        args += [
@@ -38,7 +35,7 @@ index d1a7191..f2ed791 100644
          # Work around "checking for clang option to support OpenMP... unsupported"
          "ac_cv_prog_c_openmp=-Xpreprocessor -fopenmp",
          "ac_cv_prog_cxx_openmp=-Xpreprocessor -fopenmp",
-@@ -103,3 +110,62 @@ class Imagemagick < Formula
+@@ -102,3 +109,62 @@ class Imagemagick < Formula
      assert_match "Helvetica", shell_output("#{bin}/magick -list font")
    end
  end
