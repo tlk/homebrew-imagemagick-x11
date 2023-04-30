@@ -4,6 +4,7 @@ class Imagemagick < Formula
   url "https://imagemagick.org/archive/releases/ImageMagick-7.1.1-8.tar.xz"
   sha256 "05a24995cb4ad1c1185255fa0d65c24842a71972336cda20f9fbd330299d160a"
   license "ImageMagick"
+  revision 1
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -132,39 +133,39 @@ diff --git a/configure b/configure
 index 662e288..4b4bc59 100755
 --- a/configure
 +++ b/configure
-@@ -27835,6 +27835,8 @@ LIBS="-lICE $X_EXTRA_LIBS $LIBS"
+@@ -29496,6 +29496,8 @@
+ LIBS="-lICE $X_EXTRA_LIBS $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
-
++
 +#include <X11/ICE/ICElib.h>
-+
+
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -27931,6 +27933,8 @@ LIBS="-lXext  $LIBS"
+@@ -29593,6 +29595,8 @@
+ LIBS="-lXext  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
-
++
 +#include <X11/extensions/XShm.h>
-+
+
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -27978,6 +27982,8 @@ LIBS="-lXext  $LIBS"
+@@ -29640,6 +29644,8 @@
+ LIBS="-lXext  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
-
++
 +#include <X11/extensions/shape.h>
-+
+
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
-@@ -28020,6 +28026,8 @@ LIBS="-lXt  $LIBS"
+@@ -29682,6 +29688,8 @@
+ LIBS="-lXt  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
-
-+#include <X11/Intrinsic.h>
 +
++#include <X11/Intrinsic.h>
+
  /* Override any GCC internal prototype to avoid an error.
     Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
