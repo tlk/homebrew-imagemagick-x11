@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SOURCEHISTORY=https://github.com/Homebrew/homebrew-core/commits/master/Formula/imagemagick.rb
-SOURCE=https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/imagemagick.rb
+SOURCEHISTORY=https://github.com/Homebrew/homebrew-core/commits/master/Formula/i/imagemagick.rb
+SOURCE=https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/i/imagemagick.rb
 FORMULA=Formula/imagemagick.rb
 PATCHFILE=Patch/imagemagick-x11.patch
 
