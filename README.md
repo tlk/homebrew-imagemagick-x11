@@ -29,6 +29,7 @@ brew install tlk/imagemagick-x11/imagemagick --with-graphviz
 display mygraph.dot
 convert mygraph.dot mygraph.png
 ```
+(You may also be interested in https://github.com/jrfonseca/xdot.py - an interactive viewer for graphs.)
 
 ## Updated every week
 The formula is updated weekly which means that Homebrew will automatically build and install the latest version.
