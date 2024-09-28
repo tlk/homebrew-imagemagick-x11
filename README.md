@@ -36,5 +36,4 @@ The formula is updated weekly which means that Homebrew will automatically build
 
 ## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082
-* https://imagemagick.org/discourse-server/viewtopic.php?f=3&t=37386
 * https://stackoverflow.com/a/59720020/936466
