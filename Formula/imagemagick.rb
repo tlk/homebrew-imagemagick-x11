@@ -1,10 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats (X11 support)"
   homepage "https://imagemagick.org/index.php"
-  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-3.tar.xz"
-  sha256 "2943d26f9ac4875aacf16c8f717f4d32ac985fe6a0c0a8e48c24c5cbb3161050"
+  url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-5.tar.xz"
+  sha256 "3f8a2ef3744a704edec90734106107a6f4548e65a30d91d4dedce4c17c6f9e75"
   license "ImageMagick"
-  revision 1
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -24,6 +23,7 @@ class Imagemagick < Formula
   depends_on "libraw"
   depends_on "libtiff"
   depends_on "libtool"
+  depends_on "libzip"
   depends_on "little-cms2"
   depends_on "openexr"
   depends_on "openjpeg"
@@ -76,6 +76,7 @@ class Imagemagick < Formula
       "--with-webp=yes",
       "--with-heic=yes",
       "--with-raw=yes",
+      "--with-zip=yes",
       "--without-gslib",
       "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts",
       "--with-lqr",
