@@ -6,7 +6,7 @@ FORMULA=Formula/imagemagick.rb
 PATCHFILE=Patch/imagemagick-x11.patch
 
 fetch_upstream() {
-    wget -q -O - $SOURCE > $FORMULA
+    curl --silent --output $FORMULA $SOURCE
 }
 
 update_description() {
