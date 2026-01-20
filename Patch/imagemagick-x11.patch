@@ -1,8 +1,8 @@
 diff --git a/Formula/imagemagick.rb b/Formula/imagemagick.rb
-index bb483dd..bcb7605 100644
+index 631d000..04fe657 100644
 --- a/Formula/imagemagick.rb
 +++ b/Formula/imagemagick.rb
-@@ -53,7 +53,16 @@ class Imagemagick < Formula
+@@ -40,7 +40,16 @@ class Imagemagick < Formula
  
    skip_clean :la
  
@@ -10,7 +10,7 @@ index bb483dd..bcb7605 100644
 +  depends_on "graphviz" => :optional
 +
 +  patch :DATA
-+ 
++
    def install
 +    # Add a symlink that points to the X11 include files provided by XQuartz.
 +    # This prevents the `display wizard` command from segfaulting.
@@ -19,15 +19,19 @@ index bb483dd..bcb7605 100644
      # Avoid references to shim
      inreplace Dir["**/*-config.in"], "@PKG_CONFIG@", Formula["pkg-config"].opt_bin/"pkg-config"
      # versioned stuff in main tree is pointless for us
-@@ -87,7 +96,6 @@ class Imagemagick < Formula
+@@ -66,11 +75,6 @@ class Imagemagick < Formula
+       "--without-jxl",
+       "--without-openexr",
      ]
-     if OS.mac?
-       args += [
+-    if OS.mac?
+-      args += [
 -        "--without-x",
-         # Work around "checking for clang option to support OpenMP... unsupported"
-         "ac_cv_prog_c_openmp=-Xpreprocessor -fopenmp",
-         "ac_cv_prog_cxx_openmp=-Xpreprocessor -fopenmp",
-@@ -122,3 +130,62 @@ class Imagemagick < Formula
+-      ]
+-    end
+ 
+     system "./configure", *args, *std_configure_args
+     system "make", "install"
+@@ -92,3 +96,62 @@ class Imagemagick < Formula
      end
    end
  end
