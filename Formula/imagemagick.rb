@@ -4,6 +4,7 @@ class Imagemagick < Formula
   url "https://imagemagick.org/archive/releases/ImageMagick-7.1.2-15.tar.xz"
   sha256 "ccb9913bba578daa582b73b2a97e55db49765d926cbb8ebf54e4e79b458e6679"
   license "ImageMagick"
+  revision 1
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -19,6 +20,7 @@ class Imagemagick < Formula
   # current year (2026).
   # Add other dependencies to imagemagick-full formula or consider making
   # formulae dependent on imagemagick-full.
+  depends_on "freetype"
   depends_on "glib"
   depends_on "jpeg-turbo"
   depends_on "libheif"
