@@ -37,28 +37,23 @@ git_commit_formula() {
         $FORMULA
 }
 
-manual_patch_update0() {
-    echo "Running --fetch-upstream, --update-description and --remove-bottle"
-    fetch_upstream
-    remove_bottle
+show_how_to_update_patch_file_manually() {
     echo ""
-    echo "Sometimes the upstream formula changes in a way so the patch file no longer applies and must be updated."
+    echo "Sometimes the upstream formula changes in a way such that the patch file must be updated manually."
     echo ""
     echo "How to update the patch file manually:"
-    echo "  1. bin/patchtool.sh --manual-patch-update-1   # this makes an interrim commit"
-    echo "  2. update $FORMULA manually"
-    echo "  3. bin/patchtool.sh --manual-patch-update-2   # commit patch file and formula"
-    echo "  4. git push origin master"
+    echo "  1. bin/patchtool.sh --fetch-upstream"
+    echo "  2. bin/patchtool.sh --remove-bottle"
+    echo "  3. git commit -m 'Interrim: Merge upstream but without X11 patch' $FORMULA"
+    echo "  4. # manually edit and update $FORMULA"
+    echo "  5. bin/patchtool.sh --commit-patch-file-and-formula"
+    echo "  6. git push origin master"
 }
 
-manual_patch_update1() {
-    msg="Interrim: Merge upstream but without X11 patch"
-    git commit -m "$msg" $FORMULA
-}
 
-manual_patch_update2() {
+commit_patch_file_and_formula() {
     msg="Update patch for $SOURCEHISTORY"
-    git diff $FORMULA > $PATCHFILE
+    git diff --unified=1 $FORMULA > $PATCHFILE
     git commit -m "$msg" $PATCHFILE
 
     git_commit_formula
@@ -81,15 +76,11 @@ case $1 in
         git_commit_formula
         ;;
 
-    "--manual-patch-update-1")
-        manual_patch_update1
-        ;;
-
-    "--manual-patch-update-2")
-        manual_patch_update2
+    "--commit-patch-file-and-formula")
+        commit_patch_file_and_formula
         ;;
 
     *)
-        manual_patch_update0
+        show_how_to_update_patch_file_manually
         ;;
 esac
