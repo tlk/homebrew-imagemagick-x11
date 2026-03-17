@@ -2,7 +2,7 @@
 
 This is a macOS [Homebrew](https://brew.sh) [tap](https://docs.brew.sh/Taps) for ImageMagick with X11 support.
 
-It tracks the upstream ImageMagick formula and enables the following:
+It tracks the upstream homebrew [imagemagick-full](https://formulae.brew.sh/formula/imagemagick-full) formula and enables the following:
 - X11 support
 - Graphviz support
 

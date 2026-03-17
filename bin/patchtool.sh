@@ -1,18 +1,12 @@
 #!/bin/bash
 
-SOURCEHISTORY=https://github.com/Homebrew/homebrew-core/commits/master/Formula/i/imagemagick.rb
-SOURCE=https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/i/imagemagick.rb
+SOURCEHISTORY=https://github.com/Homebrew/homebrew-core/commits/master/Formula/i/imagemagick-full.rb
+SOURCE=https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/i/imagemagick-full.rb
 FORMULA=Formula/imagemagick.rb
 PATCHFILE=Patch/imagemagick-x11.patch
 
 fetch_upstream() {
     curl --silent --output $FORMULA $SOURCE
-}
-
-update_description() {
-    exp='s/manipulate images in many formats"/manipulate images in many formats (X11 support)"/g'
-    mv $FORMULA ${FORMULA}.tmp
-    sed "$exp" ${FORMULA}.tmp > $FORMULA
 }
 
 remove_bottle() {
@@ -46,7 +40,6 @@ git_commit_formula() {
 manual_patch_update0() {
     echo "Running --fetch-upstream, --update-description and --remove-bottle"
     fetch_upstream
-    update_description
     remove_bottle
     echo ""
     echo "Sometimes the upstream formula changes in a way so the patch file no longer applies and must be updated."
@@ -74,10 +67,6 @@ manual_patch_update2() {
 case $1 in
     "--fetch-upstream")
         fetch_upstream
-        ;;
-
-    "--update-description")
-        update_description
         ;;
 
     "--remove-bottle")
