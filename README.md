@@ -37,3 +37,4 @@ The formula is updated weekly which means that Homebrew will automatically build
 ## Background
 * https://github.com/Homebrew/homebrew-core/issues/49082
 * https://stackoverflow.com/a/59720020/936466
+
